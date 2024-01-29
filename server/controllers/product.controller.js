@@ -1,18 +1,14 @@
+const catchAsync = require("../middleware/catchAsync");
 const { Product } = require("../models");
 const ErrorHandler = require("../utils/errorHandler");
 
 // create a product by admin
-exports.createProduct = async (req, res, next) => {
-  try {
-    const product = await Product.create(req.body);
-    res.status(201).json({ product, message: "Product created" });
-  } catch (err) {
-    return next(new ErrorHandler(err.message));
-  }
-  
-};
+exports.createProduct = catchAsync(async (req, res, next) => {
+  const product = await Product.create(req.body);
+  res.status(201).json({ product, message: "Product created" });
+});
 
-exports.updateProduct = async (req, res, next) => {
+exports.updateProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   let product = await Product.findById(id);
@@ -31,9 +27,9 @@ exports.updateProduct = async (req, res, next) => {
     success: true,
     message: "Product is created.",
   });
-};
+});
 
-exports.deleteProduct = async (req, res, next) => {
+exports.deleteProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   let product = await Product.findByIdAndDelete(id);
@@ -46,14 +42,10 @@ exports.deleteProduct = async (req, res, next) => {
     success: true,
     message: "Product is deleted.",
   });
-};
+});
 
 // get all products
-exports.getAllProducts = async (req, res, next) => {
-  try {
-    const product = await Product.find();
-    return res.status(200).json(product);
-  } catch (err) {
-    return next(new ErrorHandler(err.message));
-  }
-};
+exports.getAllProducts = catchAsync(async (req, res, next) => {
+  const product = await Product.find();
+  return res.status(200).json(product);
+});
