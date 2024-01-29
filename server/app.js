@@ -1,8 +1,5 @@
 const express = require("express");
-const connectDatabase = require("./config/database");
 const errorMiddleware = require("./middleware/error");
-
-// connectDatabase();
 
 const app = express();
 
