@@ -1,7 +1,8 @@
 const express = require("express");
 const connectDatabase = require("./config/database");
+const errorMiddleware = require("./middleware/error");
 
-connectDatabase();
+// connectDatabase();
 
 const app = express();
 
@@ -10,5 +11,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/product/",require("./routes/product.route"));
+
+// error middleware
+app.use(errorMiddleware);
 
 module.exports = app;
