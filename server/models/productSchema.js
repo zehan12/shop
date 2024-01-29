@@ -5,14 +5,14 @@ const productSchema = Schema(
   {
     name: {
       type: String,
-      required: [true, "Please enter product name"],
+      required: [true, "Enter product name"],
       trim: true,
     },
     description: {
       type: String,
-      required: [true, "Please enter product description"],
+      required: [true, "Enter product description"],
     },
-    price: { type: Number, required: [true, "Please enter product price"] },
+    price: { type: Number, required: [true, "Enter product price"] },
     rating: { type: Number, default: 0 },
     images: [
       {
@@ -28,11 +28,11 @@ const productSchema = Schema(
     ],
     category: {
       type: String,
-      required: [true, "Please enter product category"],
+      required: [true, "Enter product category"],
     },
     stock: {
       type: String,
-      required: [true, "Please enter stock quantity"],
+      required: [true, "Enter stock quantity"],
       default: 0,
     },
     numberOfReviews: {
