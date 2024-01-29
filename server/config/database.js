@@ -4,9 +4,7 @@ const config = require("../config/config");
 const connectDatabase = async () => {
   const db = config.db.url.replace('<password>', config.db.password);
   const options = {
-    useNewUrlParser: true,
     autoIndex: true,
-    useNewUrlParser: true,
     serverSelectionTimeoutMS: 5000,
   };
   try {
