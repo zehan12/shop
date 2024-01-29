@@ -1,4 +1,4 @@
-const mongoose = required("mongoose");
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const productSchema = Schema(
@@ -29,6 +29,11 @@ const productSchema = Schema(
     category: {
       type: String,
       required: [true, "Please enter product category"],
+    },
+    stock: {
+      type: String,
+      required: [true, "Please enter stock quantity"],
+      default: 0,
     },
     numberOfReviews: {
       type: Number,
