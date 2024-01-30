@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const bcrypt = require("bcrypt");
 
 const userSchema = new Schema({
   firstName: { type: String, require: true, maxLength: 40 },
@@ -24,7 +23,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     required: [true, "password required !!"],
-    minLength: [9, "isnt is too short !!"],
+    minLength: [9, "password is too short !!"],
     maxLength: 20,
     select: false,
   },

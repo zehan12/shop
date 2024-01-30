@@ -3,13 +3,25 @@ const { Product } = require("../models");
 const ApiFeatures = require("../utils/apiFeatures");
 const ErrorHandler = require("../utils/errorHandler");
 
-// create a product by admin
-exports.createProduct = catchAsync(async (req, res, next) => {
+/**
+ * @desc      Create a new product by admin
+ * @param     {Object} req - Request object
+ * @param     {Object} res - Response object
+ * @returns   {JSON} - A JSON object representing the created product and a success message
+ */
+const handleCreateProduct = catchAsync(async (req, res, next) => {
   const product = await Product.create(req.body);
   res.status(201).json({ product, message: "Product created" });
 });
 
-exports.updateProduct = catchAsync(async (req, res, next) => {
+/**
+ * @desc      Update a product by ID
+ * @param     {Object} req - Request object
+ * @param     {Object} res - Response object
+ * @param     {Function} next - Next middleware function
+ * @returns   {JSON} - A JSON object representing a success message
+ */
+const handleUpdateProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   let product = await Product.findById(id);
@@ -30,7 +42,14 @@ exports.updateProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteProduct = catchAsync(async (req, res, next) => {
+/**
+ * @desc      Delete a product by ID
+ * @param     {Object} req - Request object
+ * @param     {Object} res - Response object
+ * @param     {Function} next - Next middleware function
+ * @returns   {JSON} - A JSON object representing a success message
+ */
+const handleDeleteProduct = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
   let product = await Product.findByIdAndDelete(id);
@@ -45,8 +64,14 @@ exports.deleteProduct = catchAsync(async (req, res, next) => {
   });
 });
 
-// get all products
-exports.getAllProducts = catchAsync(async (req, res, next) => {
+/**
+ * @desc      Get all products
+ * @param     {Object} req - Request object
+ * @param     {Object} res - Response object
+ * @param     {Function} next - Next middleware function
+ * @returns   {JSON} - A JSON object representing the list of products and the count
+ */
+const handleGetAllProducts = catchAsync(async (req, res, next) => {
   const resultPrePage = 5;
   const productCount = await Product.countDocuments();
   const apiFeature = new ApiFeatures(Product.find(), req.query)
@@ -55,5 +80,12 @@ exports.getAllProducts = catchAsync(async (req, res, next) => {
     .pagination(resultPrePage);
 
   const product = await apiFeature.query;
-  return res.status(200).json({product,productCount});
+  return res.status(200).json({ product, productCount });
 });
+
+module.exports = {
+  handleCreateProduct,
+  handleUpdateProduct,
+  handleDeleteProduct,
+  handleGetAllProducts,
+};
