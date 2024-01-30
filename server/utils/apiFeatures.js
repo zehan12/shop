@@ -15,6 +15,7 @@ class ApiFeatures {
       : {};
 
     this.query = this.query.find({ ...keyword });
+    
     return this;
   }
 
@@ -23,9 +24,7 @@ class ApiFeatures {
 
     // remove fields
     const removeFields = ["keyword", "page", "limit"];
-    console.log(queryCopy, "before");
     removeFields.forEach((key) => delete queryCopy[key]);
-    console.log(queryCopy, "after");
 
     // filter price range and rating
     let queryStr = JSON.stringify(queryCopy);
@@ -36,7 +35,8 @@ class ApiFeatures {
   }
 
   pagination(resultPrePage) {
-    const currentPage = Number(this.query.page) || 1;
+
+    const currentPage = Number(this.queryStr.page) || 1;
 
     const skip = resultPrePage * (currentPage - 1);
 
