@@ -121,6 +121,7 @@ const userSchema = new Schema({
   resetPasswordExpire: Date,
 });
 
+
 userSchema.pre("save", async function (next) {
   if (this.password && this.isModified("password")) {
     this.password = await bcrypt.hash(this.password, 10);
@@ -155,6 +156,5 @@ userSchema.methods.userJSON = function (token) {
     avatar: this.avatar,
   };
 };
-
 
 module.exports = mongoose.model("User", userSchema);
